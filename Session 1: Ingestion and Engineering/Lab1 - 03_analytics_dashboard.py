@@ -1,11 +1,11 @@
 """
 ***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | C | U | S | T | O | M | E | R |   | D | E | M | O |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L | U | A | T | I | O | N |   | D | E | M | O |
 
-Demo:         AMS Labs Customer Analytics Dashboard
+Demo:         Snowflake Evaluation - Customer Analytics Dashboard
 Create Date:  2025-06-15
 Purpose:      Comprehensive business intelligence dashboard for talent acquisition analytics
-Data Source:  AMS_LABS.DATA_ENGINEERING (Silver, Gold, and Platinum layers)
+Data Source:  SNOWFLAKE_EVAL.DATA_ENGINEERING (Silver, Gold, and Platinum layers)
 Customer:     Talent Acquisition Data Quality & Analytics
 ***************************************************************************************************
 
@@ -35,7 +35,7 @@ import numpy as np
 
 # Page configuration
 st.set_page_config(
-    page_title="AMS Labs Customer Analytics Dashboard",
+    page_title="Snowflake Evaluation - Customer Analytics Dashboard",
     page_icon="🎯",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -117,7 +117,7 @@ def init_session():
 session = init_session()
 
 # Database configurations
-DATABASE = 'AMS_LABS'
+DATABASE = 'SNOWFLAKE_EVAL'
 SCHEMA = 'DATA_ENGINEERING'
 
 # Data loading functions with caching
@@ -314,7 +314,7 @@ def validate_data_consistency(hiring_metrics, application_summary):
 
 def main():
     """Main application function"""
-    st.markdown('<div class="main-header">🎯 AMS Labs Customer Analytics Dashboard</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">🎯 Snowflake Evaluation - Customer Analytics Dashboard</div>', unsafe_allow_html=True)
     
     # Load data
     with st.spinner("Loading customer analytics data..."):

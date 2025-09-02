@@ -71,6 +71,18 @@ Welcome to the Snowflake Evaluation Program — a hands-on journey through the c
 
 ---
 
+## 🧭 Headline Capabilities & LOC
+
+| Category | Capabilities (keywords) | LOC |
+|---|---|---|
+| Data Engineer | Ingestion, Snowpipe, Stages, File Formats, Dynamic Tables, Streams, UDFs (Python/SQL), Tasks, CTAS, Views, Stored Procedures | 3778 |
+| Governance | RBAC, Row Access Policies, Dynamic Masking, Data Metric Functions (DMFs), Alerts, Email Notifications, Time Travel, Zero-Copy Cloning, Resource Monitors, Access History, Query History, Cost Governance | 1326 |
+| ML and Predictive Analytics | Snowpark ML, Model Registry, Notebooks, Feature Engineering, Model Training, Hyperparameter Tuning, Inference, Streamlit Dashboards | 876 |
+| AI | Document Intelligence, AI_CLASSIFY, Cortex Search, AI Agents, AI-SQL | 163 |
+| Collaboration | Secure Data Sharing, Data Sharing Consumer, Cross-Region/Cloud Sharing, Failover Groups, Replication | 178 |
+
+---
+
 ## 🚀 **Key Snowflake Capabilities Demonstrated**
 
 ### **🏗️ Modern Data Architecture**

@@ -1,4 +1,4 @@
-# 🎯 AMS Labs - Lab1 Snowflake Demo Guide
+# 🎯 Snowflake Evaluation Program - Lab1 Demo Guide
 ## **Talent Acquisition Analytics with Snowflake**
 
 ---
@@ -78,7 +78,7 @@ This Lab1 demonstration showcases Snowflake's comprehensive data platform capabi
 ### **Prerequisites**
 - Snowflake account with ACCOUNTADMIN privileges
 - Compute warehouse (COMPUTE_WH) provisioned
-- Database: `AMS_LABS`, Schema: `DATA_ENGINEERING`
+- Database: `SNOWFLAKE_EVAL`, Schema: `DATA_ENGINEERING`
 - Dataset uploaded to Snowflake stage
 
 ---
@@ -120,7 +120,7 @@ This Lab1 demonstration showcases Snowflake's comprehensive data platform capabi
 
 ### **Data Metric Functions (DMFs):**
 - **System DMFs:** ROW_COUNT, NULL_COUNT, UNIQUE_COUNT, DUPLICATE_COUNT
-- **Custom Business Rules:** JobNumber format (AMS prefix), WorkdayID format (JR prefix), status validations
+- **Custom Business Rules:** Generic job number prefix validation, WorkdayID format (JR prefix), status validations
 
 ### **Key Features:**
 - **Enterprise Security** - RBAC with custom roles
@@ -277,7 +277,7 @@ This Lab1 demonstration showcases Snowflake's comprehensive data platform capabi
 
 ### **1. Environment Setup**
 Run the provided setup script to create the database, schema, and initial configuration:
-- Execute the environment setup script (creates `AMS_LABS` database and `DATA_ENGINEERING` schema)
+- Execute the environment setup script (creates `SNOWFLAKE_EVAL` database and `DATA_ENGINEERING` schema)
 - Ensure you have ACCOUNTADMIN privileges for full functionality
 
 ### **2. Initial Data Upload (UI Method)**
@@ -288,7 +288,7 @@ Before running the ingestion script, we'll use Snowflake's UI to upload the firs
 **Steps:**
 1. **Upload First File:** Use Snowflake's "Load Data into Table" interface to upload `TA_Applications_Data_For_Workshops v3_chunk_001.csv`
 2. **Table Configuration:** 
-   - Select schema: `AMS_LABS.DATA_ENGINEERING`
+   - Select schema: `SNOWFLAKE_EVAL.DATA_ENGINEERING`
    - **Important:** Name the table `TA_APPLICATION_DATA_BRONZE` (exactly as shown)
    - Configure CSV format settings (semicolon delimiter, headers, etc.)
 3. **Verify Upload:** Confirm the table is created with correct structure and initial data

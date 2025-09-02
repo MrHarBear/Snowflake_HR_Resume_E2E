@@ -35,7 +35,7 @@ Business Value:
 ----------------------------------------------------------------------------------*/
 
 USE ROLE ACCOUNTADMIN;
-USE DATABASE AMS_LABS;
+USE DATABASE SNOWFLAKE_EVAL;
 USE SCHEMA DATA_ENGINEERING;
 -- SNOWFLAKE CAPABILITY: Native JSON file format support
 -- No external tools needed - Snowflake handles JSON parsing automatically
@@ -48,15 +48,15 @@ desc file format JSON_FILE_FORMAT;
   
 -- SNOWFLAKE CAPABILITY: VARIANT data type stores JSON natively
 -- No need to pre-define schema - JSON structure is preserved and queryable
-CREATE OR REPLACE TABLE AMS_LABS.DATA_ENGINEERING.RESUME_JSON AS
+CREATE OR REPLACE TABLE SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON AS
 SELECT 
   METADATA$FILENAME as FILE_NAME,                -- File lineage tracking
   METADATA$FILE_ROW_NUMBER as ROW_NUMBER,        -- Row-level lineage
   $1 as RAW_RESUME                               -- VARIANT column - stores any JSON structure
-FROM @AMS_LABS.DATA_ENGINEERING.STRUCTURED_RESUMES
-(FILE_FORMAT => AMS_LABS.DATA_ENGINEERING.JSON_FILE_FORMAT);
+FROM @STRUCTURED_RESUMES
+(FILE_FORMAT => SNOWFLAKE_EVAL.DATA_ENGINEERING.JSON_FILE_FORMAT);
 
-select top 10 * from AMS_LABS.DATA_ENGINEERING.RESUME_JSON;
+select top 10 * from SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON;
 
 DESC TABLE RESUME_JSON;
 
@@ -87,7 +87,7 @@ SELECT
   r.RAW_RESUME:ResumeParserData.Category::STRING as category,
   r.RAW_RESUME:ResumeParserData.WorkedPeriod.TotalExperienceInYear::STRING as total_experience_years
 
-FROM AMS_LABS.DATA_ENGINEERING.RESUME_JSON r;
+FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON r;
 
 SELECT * FROM vw_resume_summary;
 
@@ -113,7 +113,7 @@ WITH skills_aggregated AS (
         )
       ) WITHIN GROUP (ORDER BY s.value:ExperienceInMonths::NUMBER DESC)
     ) as skills_json
-  FROM AMS_LABS.DATA_ENGINEERING.RESUME_JSON r,
+  FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON r,
     -- LATERAL FLATTEN: Converts JSON arrays to rows for SQL processing
     LATERAL FLATTEN(input => r.RAW_RESUME:ResumeParserData.SegregatedSkill) s
   GROUP BY r.FILE_NAME, r.ROW_NUMBER
@@ -150,10 +150,10 @@ SELECT
   r.RAW_RESUME:ResumeParserData.WebSite[0].Type::STRING as social_network,
   r.RAW_RESUME:ResumeParserData.WebSite[0].Url::STRING as social_url
 
-FROM AMS_LABS.DATA_ENGINEERING.RESUME_JSON r
+FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON r
 LEFT JOIN skills_aggregated sa ON r.FILE_NAME = sa.FILE_NAME AND r.ROW_NUMBER = sa.ROW_NUMBER;
 
-SELECT * FROM AMS_LABS.DATA_ENGINEERING.VW_RESUME_FULL_DATA;
+SELECT * FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.VW_RESUME_FULL_DATA;
 
 -- SNOWFLAKE CAPABILITY: AI Integration with Cortex
 -- Process semi-structured data with AI directly in SQL
@@ -246,7 +246,7 @@ SELECT * FROM candidate_skills;
 -- ============================================================================
 
 -- Schema Evolution Demo - Show how Snowflake handles new fields seamlessly
-INSERT INTO AMS_LABS.DATA_ENGINEERING.RESUME_JSON (FILE_NAME, ROW_NUMBER, RAW_RESUME)
+INSERT INTO SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON (FILE_NAME, ROW_NUMBER, RAW_RESUME)
 SELECT 
     'schema_evolution_demo.json',
     999,
@@ -264,7 +264,7 @@ SELECT
     }');
 
 -- new fields accessible immediately
-    select * from AMS_LABS.DATA_ENGINEERING.RESUME_JSON
+    select * from SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON
 
     WHERE file_name = 'schema_evolution_demo.json';
 SELECT 
@@ -275,11 +275,11 @@ SELECT
     raw_resume:ResumeParserData.NewField_2024::STRING as new_field,
     raw_resume:ResumeParserData.SocialMedia.LinkedIn::STRING as linkedin,
     raw_resume:ResumeParserData.SkillsV2 as new_skills_format
-FROM AMS_LABS.DATA_ENGINEERING.RESUME_JSON
+FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON
 WHERE file_name = 'schema_evolution_demo.json';
 
 -- Clean up demo record
-DELETE FROM AMS_LABS.DATA_ENGINEERING.RESUME_JSON 
+DELETE FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON 
 WHERE file_name = 'schema_evolution_demo.json';
 
 -- Advanced Analytics Example - Skills Market Intelligence
@@ -290,7 +290,7 @@ WITH skills_analytics AS (
         skill.value:Skill::STRING as skill_name,
         skill.value:ExperienceInMonths::NUMBER as skill_experience,
         COUNT(*) OVER (PARTITION BY skill.value:Skill::STRING) as market_demand
-    FROM AMS_LABS.DATA_ENGINEERING.RESUME_JSON r,
+    FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON r,
     LATERAL FLATTEN(input => r.raw_resume:ResumeParserData.SegregatedSkill) skill
     WHERE skill.value:Skill::STRING IS NOT NULL
 )
@@ -312,7 +312,7 @@ LIMIT 10;
 SELECT 
     raw_resume:ResumeParserData.Name.FullName::STRING as candidate_name,
     'Python Developer Match' as search_type
-FROM AMS_LABS.DATA_ENGINEERING.RESUME_JSON
+FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.RESUME_JSON
 WHERE CONTAINS(TO_VARCHAR(raw_resume), 'Python') 
    OR CONTAINS(TO_VARCHAR(raw_resume), 'programming');
 
@@ -346,7 +346,7 @@ SELECT
   QUALIFY ROW_NUMBER() OVER (PARTITION BY a.geo_id ORDER BY a.DATE DESC) = 1;
 
 
-CREATE OR REPLACE VIEW AMS_LABS.DATA_ENGINEERING.VW_RESUME_WITH_GNI AS
+CREATE OR REPLACE VIEW SNOWFLAKE_EVAL.DATA_ENGINEERING.VW_RESUME_WITH_GNI AS
 WITH latest_gni_per_country AS (
   -- This is your query to get the latest GNI for each country
   SELECT
@@ -368,10 +368,10 @@ SELECT
   res.*, -- Selects all columns from your original resume view
   gni.value AS gni_per_capita,
   gni.date AS gni_report_date
-FROM AMS_LABS.DATA_ENGINEERING.VW_RESUME_FULL_DATA AS res
+FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.VW_RESUME_FULL_DATA AS res
 LEFT JOIN latest_gni_per_country AS gni
   ON res.Country_Code = gni.iso_alpha2;
 
   -- See the data!
-select * from AMS_LABS.DATA_ENGINEERING.VW_RESUME_WITH_GNI;
+select * from SNOWFLAKE_EVAL.DATA_ENGINEERING.VW_RESUME_WITH_GNI;
   

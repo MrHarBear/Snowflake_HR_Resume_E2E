@@ -1,7 +1,7 @@
 /***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | A | D | M | I | N |   | M | O | N | I | T | O | R | I | N | G |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L |   | A | D | M | I | N |   | M | O | N | I | T | O | R | I | N | G |
 
-Demo:         AMS Labs Data Admin Monitoring for TA Application Data
+Demo:         Snowflake Evaluation - Data Admin Monitoring for TA Application Data
 Create Date:  2025-06-15
 Purpose:      Monitor access, performance, and compliance for HR/recruiting data
 Target Table: AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP
@@ -24,7 +24,7 @@ SUMMARY OF FEATURES
 
 USE ROLE ACCOUNTADMIN;
 USE WAREHOUSE COMPUTE_WH;
-USE DATABASE AMS_LABS;
+USE DATABASE SNOWFLAKE_EVAL;
 USE SCHEMA DATA_ENGINEERING;
 
 -- Note: Access History has up to 3 hours latency, so recent queries may not appear immediately

@@ -1,10 +1,10 @@
 /***************************************************************************************************
 | A | M | S |   | L | A | B | S |   | C | U | S | T | O | M | E | R |   | D | E | M | O |
 
-Demo:         AMS Labs Data Transformation Pipeline
+Demo:         Snowflake Evaluation - Data Transformation Pipeline
 Create Date:  2025-06-15
 Purpose:      Demonstrate Snowflake data transformation through Bronze → Silver → Gold → Platinum layers
-Data Source:  AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
+Data Source:  SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
 Customer:     Talent Acquisition Data Quality & Analytics
 ****************************************************************************************************
 
@@ -24,7 +24,7 @@ Key Concepts:
 
 
 USE ROLE ACCOUNTADMIN;
-USE DATABASE AMS_LABS;
+USE DATABASE SNOWFLAKE_EVAL;
 USE SCHEMA DATA_ENGINEERING;
 
 -- =====================================================
@@ -155,7 +155,7 @@ SELECT DISTINCT
     END AS FUNNEL_ORDER
 FROM (
     SELECT DISTINCT TRIM(UPPER(APPLICATIONSTATUS)) AS APPLICATION_STATUS_CLEAN
-    FROM AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP
+    FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP
     WHERE APPLICATIONSTATUS IS NOT NULL
 );
 
@@ -215,7 +215,7 @@ SELECT
     
     -- Original snapshot date
     SNAPSHOT_DATE
-FROM AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
+FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
 
 -- =====================================================
 -- SECTION 3.1: AI-POWERED COUNTRY-TO-REGION MAPPING TABLE
@@ -613,14 +613,14 @@ $$;
 
 -- ✅ SOLUTION: Stream-Based Task (Only runs when data changes)
 -- Create stream to monitor changes in source data
-CREATE OR REPLACE STREAM GOLD_METRICS_STREAM 
-ON TABLE GOLD_CUSTOMER_HIRING_METRICS;
+CREATE OR REPLACE STREAM METRICS_STREAM 
+ON TABLE TA_APPLICATION_DATA_BRONZE;
 
 -- Optimized task that only runs when data actually changes
 CREATE OR REPLACE TASK PLATINUM_EXECUTIVE_DASHBOARD_TASK
     WAREHOUSE = COMPUTE_WH
     SCHEDULE = 'USING CRON * * * * * UTC'  -- Every minute for near real-time updates
-    WHEN SYSTEM$STREAM_HAS_DATA('GOLD_METRICS_STREAM')  -- Only run if data changed
+    WHEN SYSTEM$STREAM_HAS_DATA('METRICS_STREAM')  -- Only run if data changed
     AS
     CALL GENERATE_EXECUTIVE_DASHBOARD();
 
@@ -711,202 +711,6 @@ TRIGGERS
 
 -- Apply to warehouse
 ALTER WAREHOUSE COMPUTE_WH SET RESOURCE_MONITOR = EXECUTIVE_DASHBOARD_MONITOR;
-
--- =====================================================
--- MONITORING VIEW FOR COST TRACKING
--- =====================================================
-
--- Simple cost monitoring view
-CREATE OR REPLACE VIEW EXECUTIVE_DASHBOARD_COST_MONITOR AS
-SELECT 
-    DATE_TRUNC('day', START_TIME) AS date,
-    WAREHOUSE_NAME,
-    COUNT(*) AS executions,
-    SUM(EXECUTION_TIME)/1000/60 AS total_minutes,
-    SUM(CREDITS_USED) AS total_credits,
-    AVG(EXECUTION_TIME)/1000 AS avg_seconds
-FROM SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY
-WHERE QUERY_TEXT ILIKE '%GENERATE_EXECUTIVE_DASHBOARD%'
-    AND START_TIME >= DATEADD('day', -30, CURRENT_TIMESTAMP())
-GROUP BY 1, 2
-ORDER BY date DESC;
-
-/*
-COST COMPARISON:
-
-❌ ORIGINAL APPROACH (Every minute):
-- 1,440 executions per day = 43,200 executions per month
-- Estimated cost: ~$7,200/month for Medium warehouse
-
-✅ STREAM-BASED APPROACH (Every 2 hours, only when data changes):
-- Maximum: 12 executions per day = 360 executions per month
-- Realistic: 2-6 executions per day (only when data actually changes)
-- Estimated cost: ~$30-90/month
-
-💰 SAVINGS: 95-99% cost reduction!
-*/
-
--- =====================================================
--- SECTION 6: VIEWS FOR EASY ACCESS
--- =====================================================
-
--- 6.1: Summary view for analysts
--- 
--- PURPOSE: This view provides business analysts with a high-level overview of recruitment 
--- performance across different dimensions. It aggregates data by region, job function, 
--- and application outcome to show patterns and trends in the recruitment process.
---
-CREATE OR REPLACE VIEW ANALYST_APPLICATION_SUMMARY AS
-SELECT 
-    GEOGRAPHIC_REGION,
-    JOB_FUNCTION_CATEGORY,
-    APPLICATION_OUTCOME_CATEGORY,
-    SNAPSHOT_YEAR,
-    COUNT(*) AS application_count,
-    ROUND(AVG(OVERALL_SUCCESS_RATE), 2) AS avg_success_rate,
-    LISTAGG(DISTINCT SOURCING_CHANNEL_TYPE_CLEAN, ', ') AS sourcing_channels_used
-FROM GOLD_CUSTOMER_HIRING_METRICS
-GROUP BY GEOGRAPHIC_REGION, JOB_FUNCTION_CATEGORY, APPLICATION_OUTCOME_CATEGORY, SNAPSHOT_YEAR
-ORDER BY SNAPSHOT_YEAR DESC, application_count DESC;
-
--- Demonstrate what this view shows: Cross-dimensional analysis of recruitment performance
--- This helps analysts understand which combinations of region, job function, and outcomes
--- are most/least successful, and what sourcing channels are being used.
-SELECT 
-    GEOGRAPHIC_REGION,
-    JOB_FUNCTION_CATEGORY,
-    APPLICATION_OUTCOME_CATEGORY,
-    application_count,
-    avg_success_rate,
-    sourcing_channels_used
-FROM ANALYST_APPLICATION_SUMMARY 
-WHERE SNAPSHOT_YEAR = EXTRACT(YEAR FROM CURRENT_DATE())
-  AND application_count >= 10  -- Focus on meaningful sample sizes
-ORDER BY avg_success_rate DESC
-LIMIT 10;
-
--- 6.2: Real-time monitoring view
--- 
--- PURPOSE: This view provides data engineers and operations teams with a real-time
--- snapshot of the entire data pipeline health. It shows row counts across all layers
--- and table types, helping identify data flow issues or pipeline failures.
---
-CREATE OR REPLACE VIEW REALTIME_PIPELINE_STATUS AS
-SELECT 
-    'Bronze Layer' AS layer_name,
-    'TA_APPLICATION_DATA_BRONZE_DEDUP' AS table_name,
-    COUNT(*) AS record_count,
-    MAX(SNAPSHOT_DATE) AS latest_data_date,
-    'Static Table' AS table_type
-FROM TA_APPLICATION_DATA_BRONZE_DEDUP
-
-UNION ALL
-
-SELECT 
-    'Silver Layer' AS layer_name,
-    'SILVER_APPLICATIONS_ENRICHED' AS table_name,
-    COUNT(*) AS record_count,
-    MAX(SNAPSHOT_DATE) AS latest_data_date,
-    'Dynamic Table' AS table_type
-FROM SILVER_APPLICATIONS_ENRICHED
-
-UNION ALL
-
-SELECT 
-    'Gold Layer' AS layer_name,
-    'GOLD_CUSTOMER_HIRING_METRICS' AS table_name,
-    SUM(TOTAL_APPLICATIONS) AS record_count,
-    CURRENT_DATE() AS latest_data_date,
-    'Dynamic Table' AS table_type
-FROM GOLD_CUSTOMER_HIRING_METRICS
-
-UNION ALL
-
-SELECT 
-    'Platinum Layer' AS layer_name,
-    'PLATINUM_EXECUTIVE_DASHBOARD' AS table_name,
-    COUNT(*) AS record_count,
-    MAX(REPORT_DATE) AS latest_data_date,
-    'Stored Procedure Output' AS table_type
-FROM PLATINUM_EXECUTIVE_DASHBOARD;
-
--- Demonstrate what this view shows: Pipeline health monitoring at a glance
--- This helps operations teams quickly identify if any layer has data flow issues,
--- unexpected row count drops, or refresh problems.
-SELECT 
-    layer_name,
-    table_name,
-    record_count,
-    latest_data_date,
-    table_type,
-    CASE 
-        WHEN record_count = 0 THEN '⚠️ NO DATA'
-        WHEN record_count < 100 THEN '⚠️ LOW VOLUME'
-        ELSE '✅ HEALTHY'
-    END AS health_status,
-    DATEDIFF('day', latest_data_date, CURRENT_DATE()) AS days_since_last_update
-FROM REALTIME_PIPELINE_STATUS 
-ORDER BY 
-    CASE layer_name 
-        WHEN 'Bronze Layer' THEN 1 
-        WHEN 'Silver Layer' THEN 2 
-        WHEN 'Gold Layer' THEN 3 
-        WHEN 'Platinum Layer' THEN 4 
-    END;
-
-
-
--- 6.3: Funnel Metrics Summary View
--- 
--- PURPOSE: This view provides HR teams and business leaders with summarized 
--- recruitment funnel performance across key dimensions. It shows how candidates
--- progress through the hiring process and where drop-offs occur, enabling
--- data-driven optimization of recruitment strategies.
---
-CREATE OR REPLACE VIEW FUNNEL_METRICS_SUMMARY AS
-SELECT 
-    GEOGRAPHIC_REGION,
-    CANDIDATE_COUNTRY_CLEAN,
-    JOB_FUNCTION_CATEGORY,
-    SUM(TOTAL_APPLICATIONS) AS total_applications,
-    
-    -- Funnel progression percentages (of all applicants, how many reach each stage)
-    ROUND(AVG(PCT_REACHED_IN_PROCESS), 2) AS avg_pct_reached_in_process,
-    ROUND(AVG(PCT_REACHED_OFFERED), 2) AS avg_pct_reached_offered,
-    ROUND(AVG(PCT_REACHED_HIRED), 2) AS avg_pct_reached_hired,
-    
-    -- Drop-off analysis (where do we lose candidates)
-    ROUND(AVG(PCT_DECLINED), 2) AS avg_pct_declined,
-    ROUND(AVG(PCT_WITHDRAWN), 2) AS avg_pct_withdrawn,
-    
-    -- Overall success rate
-    ROUND(AVG(OVERALL_SUCCESS_RATE), 2) AS avg_overall_success_rate
-    
-FROM GOLD_CUSTOMER_HIRING_METRICS
-WHERE SNAPSHOT_YEAR = EXTRACT(YEAR FROM CURRENT_DATE())
-GROUP BY GEOGRAPHIC_REGION, CANDIDATE_COUNTRY_CLEAN, JOB_FUNCTION_CATEGORY
-ORDER BY total_applications DESC;
-
--- Demonstrate what this view shows: Funnel optimization insights
--- This helps HR teams identify which regions, countries, or job functions have
--- the most efficient hiring funnels and where process improvements are needed.
-SELECT 
-    GEOGRAPHIC_REGION,
-    JOB_FUNCTION_CATEGORY,
-    total_applications,
-    avg_pct_reached_in_process,
-    avg_pct_reached_offered,
-    avg_pct_reached_hired,
-    avg_overall_success_rate,
-    CASE 
-        WHEN avg_overall_success_rate >= 15 THEN '🟢 High Performance'
-        WHEN avg_overall_success_rate >= 8 THEN '🟡 Average Performance' 
-        ELSE '🔴 Needs Improvement'
-    END AS funnel_performance_rating
-FROM FUNNEL_METRICS_SUMMARY 
-WHERE total_applications >= 50  -- Focus on statistically significant samples
-ORDER BY avg_overall_success_rate DESC
-LIMIT 15;
 
 -- =====================================================
 -- PIPELINE SUMMARY
