@@ -1,10 +1,10 @@
 /***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | C | U | S | T | O | M | E | R |   | D | E | M | O |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L | U | A | T | I | O | N |   | P | R | O | G | R | A | M |
 
-Demo:         AMS Labs Data Ingestion and Loading 
+Demo:         Snowflake Evaluation Program Data Ingestion and Loading 
 Create Date:  2025-06-15
 Purpose:      Demonstrate Snowflake data ingestion capabilities using CSV files and Snowpipe
-Data Source:  AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
+Data Source:  SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
 Customer:     Talent Acquisition Data Quality & Analytics
 ****************************************************************************************************
 
@@ -22,7 +22,7 @@ Key Concepts:
 
 use role accountadmin;
 
-use database ams_labs;
+use database snowflake_eval;
 use schema data_engineering;
 
 -- =====================================================
@@ -33,11 +33,11 @@ use schema data_engineering;
 -- This copies files 002-010 from the repository into our internal stage
 COPY FILES
   INTO @TA_APPLICATION_DATA
-  FROM '@ams_labs_repo/branches/main/Session 1: Ingestion and Engineering/Dataset/TA_Application_Data/'
+  FROM '@snowflake_eval_repo/branches/main/Session 1: Ingestion and Engineering/Dataset/TA_Application_Data/'
   PATTERN='.*TA_Applications_Data_For_Workshops_(00[2-9]|010)\.csv';
 
 -- Verify files were copied successfully
-LIST @AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA;
+LIST @SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA;
 
 -- Step 2: Create a file format that handles the CSV structure
 -- This format handles semicolon-delimited files with headers and quoted fields
@@ -58,7 +58,7 @@ CREATE OR REPLACE FILE FORMAT csv_format
 CREATE OR REPLACE PIPE mypipe_internal
   AUTO_INGEST = TRUE
   AS
-    COPY INTO AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
+    COPY INTO SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
     FROM @TA_APPLICATION_DATA
     PATTERN = '.*TA_Applications_Data_For_Workshops_.*\.csv'
     FILE_FORMAT = (FORMAT_NAME = 'csv_format')
@@ -72,17 +72,17 @@ ALTER PIPE mypipe_internal REFRESH;
 
 -- Step 4: Verify the data load
 -- Check total number of records loaded
-SELECT COUNT(*) as TOTAL_ROWS FROM AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE;
+SELECT COUNT(*) as TOTAL_ROWS FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE;
 
 -- Step 5: Sample the data to verify structure
 -- View first 100 records ordered by application ID
-SELECT * FROM AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
+SELECT * FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
 order by TA_APPLICATIONS_UK
 LIMIT 100;
 
 -- Step 6: Show table structure
 -- Display column names and data types
-DESCRIBE TABLE AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE;
+DESCRIBE TABLE SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE;
 
 -- =====================================================
 -- Data Quality Checks (Optional - Uncomment to run)
@@ -116,14 +116,14 @@ DESCRIBE TABLE AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE;
 
 -- Step 7: Explore data with time-based ordering
 -- View records ordered by job number and snapshot date to understand data structure
-SELECT * FROM AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
+SELECT * FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
 order by JOBNUMBER, snapshot_date
 LIMIT 500;
 
 -- Step 8: Create Dynamic Table for automatic deduplication
 -- This table automatically refreshes every minute and removes duplicates
 -- keeping the most recent record for each application ID and status combination
-CREATE OR REPLACE DYNAMIC TABLE AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP
+CREATE OR REPLACE DYNAMIC TABLE SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP
 TARGET_LAG = '1 minute'
 WAREHOUSE = COMPUTE_WH
 AS 
@@ -161,12 +161,12 @@ The deduplication keeps the most recent record per application ID and status.
 
 -- Step 9: Verify deduplicated data
 -- Sample the cleaned, deduplicated dataset
-select top 500 * from AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
+select top 500 * from SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
 
 -- Step 10: Let's upload the rest of the files (BUT ONLY AFTER WE RUN THROUGH THE PIPELINE SO 
 -- WE CAN SEE THE PIPELINE WORKING!)
 
 -- COPY FILES
 --   INTO @TA_APPLICATION_DATA
---   FROM '@ams_labs_repo/branches/main/Session 1: Ingestion and Engineering/Dataset/TA_Application_Data/'
+--   FROM '@snowflake_eval_repo/branches/main/Session 1: Ingestion and Engineering/Dataset/TA_Application_Data/'
 --   PATTERN='.*TA_Applications_Data_For_Workshops_(01[1-9]|02[0-9])\.csv';

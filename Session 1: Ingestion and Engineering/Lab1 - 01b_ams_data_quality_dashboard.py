@@ -1,11 +1,11 @@
 """
 ***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | C | U | S | T | O | M | E | R |   | D | E | M | O |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L | U | A | T | I | O | N |   | P | R | O | G | R | A | M |
 
-Demo:         AMS Labs Data Quality Dashboard
+Demo:         Snowflake Evaluation Data Quality Dashboard
 Create Date:  2025-06-15
 Purpose:      Interactive Streamlit dashboard for monitoring Snowflake data quality metrics
-Data Source:  AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
+Data Source:  SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE
 Customer:     Talent Acquisition Data Quality & Analytics
 ***************************************************************************************************
 
@@ -36,7 +36,7 @@ from datetime import datetime, timedelta
 
 # Page configuration
 st.set_page_config(
-    page_title="AMS Labs Data Quality Dashboard",
+    page_title="Snowflake Evaluation Data Quality Dashboard",
     page_icon="📊",
     layout="wide"
 )
@@ -80,7 +80,7 @@ st.markdown("""
 session = get_active_session()
 
 # Database configurations
-DATABASE = 'AMS_LABS'
+DATABASE = 'SNOWFLAKE_EVAL'
 SCHEMA = 'DATA_ENGINEERING'
 TABLE_NAME = 'TA_APPLICATION_DATA_BRONZE'
 
@@ -193,7 +193,7 @@ def get_problematic_records(metric_name: str, limit: int = 50) -> tuple[pd.DataF
             query = f"""
             SELECT * FROM {DATABASE}.{SCHEMA}.{TABLE_NAME}
             WHERE JOBNUMBER IS NOT NULL 
-              AND FALSE = (JOBNUMBER ILIKE 'AMS%')
+              AND FALSE = (JOBNUMBER ILIKE 'EVAL%')
             ORDER BY SNAPSHOT_DATE DESC
             LIMIT {limit}
             """
@@ -389,7 +389,7 @@ def display_table_schema(table_profile: dict):
 
 def main():
     """Main application function"""
-    st.markdown('<div class="main-header">📊 AMS Labs Data Quality Dashboard</div>', unsafe_allow_html=True)
+    st.markdown('<div class="main-header">📊 Snowflake Evaluation Data Quality Dashboard</div>', unsafe_allow_html=True)
     
     # Refresh button
     col1, col2, col3 = st.columns([1, 1, 1])

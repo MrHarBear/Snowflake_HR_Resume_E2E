@@ -1,15 +1,15 @@
 /***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | C | U | S | T | O | M | E | R |   | D | E | M | O |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L | U | A | T | I | O | N |   | P | R | O | G | R | A | M |
 
-Demo:         AMS Labs Environment Setup and Configuration
+Demo:         Snowflake Evaluation Program Environment Setup and Configuration
 Create Date:  2025-06-15
-Purpose:      Complete environment setup for AMS Labs workshop sessions
+Purpose:      Complete environment setup for the Snowflake Evaluation Program sessions
 Data Source:  GitHub Repository Integration with Multi-Session Data Sources
-Customer:     AMS Labs Workshop - Comprehensive Snowflake Capabilities Demo
+Customer:     Standard Snowflake Evaluation Program - Comprehensive Capabilities Demo
 ****************************************************************************************************
 
 /*----------------------------------------------------------------------------------
-This script provides comprehensive environment setup for the AMS Labs workshop 
+This script provides comprehensive environment setup for the Snowflake Evaluation Program 
 series covering data engineering, security, governance, machine learning, AI, 
 and integration capabilities. It establishes the foundational infrastructure 
 including databases, warehouses, stages, roles, Git integration, and Streamlit 
@@ -27,9 +27,9 @@ Key Concepts:
 --SETUP
 use role accountadmin;
 ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
-create database if not exists AMS_LABS;
+create database if not exists SNOWFLAKE_EVAL;
 create schema if not exists data_engineering;
-use database ams_labs;
+use database snowflake_eval;
 use schema data_engineering;
 create OR REPLACE WAREHOUSE COMPUTE_WH
 WAREHOUSE_SIZE = XSMALL
@@ -92,18 +92,18 @@ GRANT DATABASE ROLE SNOWFLAKE.DOCUMENT_INTELLIGENCE_CREATOR TO ROLE doc_ai_role;
 GRANT USAGE, OPERATE ON WAREHOUSE doc_ai_wh TO ROLE doc_ai_role;
 
 --To ensure that the doc_ai_role role can use the database and the schema, run the following commands:
-GRANT USAGE ON DATABASE AMS_LABS TO ROLE doc_ai_role;
-GRANT USAGE ON SCHEMA AMS_LABS.data_engineering TO ROLE doc_ai_role;
+GRANT USAGE ON DATABASE SNOWFLAKE_EVAL TO ROLE doc_ai_role;
+GRANT USAGE ON SCHEMA SNOWFLAKE_EVAL.data_engineering TO ROLE doc_ai_role;
 
 --To ensure that the doc_ai_role role can create a stage to store the documents for extraction, run the following commands:
-GRANT CREATE STAGE ON SCHEMA AMS_LABS.data_engineering TO ROLE doc_ai_role;
+GRANT CREATE STAGE ON SCHEMA SNOWFLAKE_EVAL.data_engineering TO ROLE doc_ai_role;
 
 --To ensure that the doc_ai_role role can create model builds (instances of the DOCUMENT_INTELLIGENCE class), run the following commands:
-GRANT CREATE SNOWFLAKE.ML.DOCUMENT_INTELLIGENCE ON SCHEMA AMS_LABS.data_engineering TO ROLE doc_ai_role;
-GRANT CREATE MODEL ON SCHEMA AMS_LABS.data_engineering TO ROLE doc_ai_role;
+GRANT CREATE SNOWFLAKE.ML.DOCUMENT_INTELLIGENCE ON SCHEMA SNOWFLAKE_EVAL.data_engineering TO ROLE doc_ai_role;
+GRANT CREATE MODEL ON SCHEMA SNOWFLAKE_EVAL.data_engineering TO ROLE doc_ai_role;
 
 --To ensure that the doc_ai_role role can create processing pipelines, run the following commands:
-GRANT CREATE STREAM, CREATE TABLE, CREATE TASK, CREATE VIEW ON SCHEMA AMS_LABS.data_engineering TO ROLE doc_ai_role;
+GRANT CREATE STREAM, CREATE TABLE, CREATE TASK, CREATE VIEW ON SCHEMA SNOWFLAKE_EVAL.data_engineering TO ROLE doc_ai_role;
 GRANT EXECUTE TASK ON ACCOUNT TO ROLE doc_ai_role;
 
 
@@ -121,71 +121,71 @@ CREATE OR REPLACE API INTEGRATION git_api_integration
 DESC INTEGRATION git_api_integration;
 
 -- Create Git repository integration
-CREATE OR REPLACE GIT REPOSITORY AMS_LABS_REPO
+CREATE OR REPLACE GIT REPOSITORY SNOWFLAKE_EVAL_REPO
     API_INTEGRATION = git_api_integration
-  ORIGIN = 'https://github.com/sfc-gh-hachen/AMS_Labs_2025_06.git'
+  ORIGIN = 'https://github.com/sfc-gh-hachen/Snowflake_Evaluation_Program.git'
   GIT_CREDENTIALS = NULL;
 
 -- List files to verify the repository connection
-SHOW GIT BRANCHES IN GIT REPOSITORY AMS_LABS_REPO;
+SHOW GIT BRANCHES IN GIT REPOSITORY SNOWFLAKE_EVAL_REPO;
 
 -- Refresh the Git repository clone
-ALTER GIT REPOSITORY AMS_LABS_REPO FETCH;
-LS @AMS_LABS_REPO/branches/main;
+ALTER GIT REPOSITORY SNOWFLAKE_EVAL_REPO FETCH;
+LS @SNOWFLAKE_EVAL_REPO/branches/main;
 
 -- Copy the structured resumes into the structured resumes stage directly from the repository
 COPY FILES
   INTO @STRUCTURED_RESUMES
-  FROM '@ams_labs_repo/branches/main/Session 1: Ingestion and Engineering/Dataset/Structured Resumes/'
+  FROM '@snowflake_eval_repo/branches/main/Session 1: Ingestion and Engineering/Dataset/Structured Resumes/'
   PATTERN='.*\.json';
 
 -- Copy all CV files from Session 6 into the CVS stage, maintaining folder structure
 COPY FILES
   INTO '@CVS/Business Analyst/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Business Analyst/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Business Analyst/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/Business Relationship Manager/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Business Relationship Manager/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Business Relationship Manager/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/Customer Service/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Customer Service/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Customer Service/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/Data Scientist/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Data Scientist/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Data Scientist/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/Head Of Compliance/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Head Of Compliance/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Head Of Compliance/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/Investment Banker/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Investment Banker/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Investment Banker/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/PEP Risk Analyst/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/PEP Risk Analyst/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/PEP Risk Analyst/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/Private Banking Execs/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Private Banking Execs/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Private Banking Execs/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/Product Managers/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Product Managers/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Product Managers/'
   PATTERN='.*\.docx';
 
 COPY FILES
   INTO '@CVS/Risk Assessment Assoc/'
-  FROM '@ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Risk Assessment Assoc/'
+  FROM '@snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI/CVs/Risk Assessment Assoc/'
   PATTERN='.*\.docx';

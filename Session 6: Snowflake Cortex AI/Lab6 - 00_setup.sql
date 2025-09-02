@@ -1,10 +1,10 @@
 use role accountadmin;
 
-use database ams_labs;
+use database snowflake_eval;
 use schema data_engineering;
   -- Create Notebooks
 CREATE NOTEBOOK Lab06_Cortex_AI_Notebook
- FROM '@ams_labs.data_engineering.ams_labs_repo/branches/main/Session 6: Snowflake Cortex AI'
+ FROM '@snowflake_eval.data_engineering.snowflake_eval_repo/branches/main/Session 6: Snowflake Cortex AI'
  MAIN_FILE = 'Lab6 - 01_Cortex_AI_Notebook.ipynb'
  QUERY_WAREHOUSE = notebook_wh;
 

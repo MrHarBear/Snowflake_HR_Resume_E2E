@@ -1,7 +1,7 @@
 /***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | C | U | S | T | O | M | E | R |   | D | E | M | O |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L | U | A | T | I | O | N |   | D | E | M | O |
 
-Demo:         AMS Labs ML and Predictive Analytics Setup
+Demo:         Snowflake Evaluation - ML and Predictive Analytics Setup
 Create Date:  2025-06-15
 Purpose:      Setup environment for HR employee attrition analysis and machine learning workflows
 Data Source:  HR_ANALYTICS.ML_MODELING.HR_EMPLOYEE_ATTRITION
@@ -33,8 +33,8 @@ CREATE SCHEMA IF NOT EXISTS ML_MODELING;
 USE SCHEMA ML_MODELING;
 
   -- Create Notebooks
-CREATE NOTEBOOK AMS_ML_ATTRITION_ANALYTICS
- FROM '@ams_labs.data_engineering.ams_labs_repo/branches/main/Session 5: ML and Predictive Analytics'
+CREATE NOTEBOOK EVAL_ML_ATTRITION_ANALYTICS
+ FROM '@snowflake_eval.data_engineering.snowflake_eval_repo/branches/main/Session 5: ML and Predictive Analytics'
  MAIN_FILE = 'AMS_ML_ATTRITION_ANALYTICS.ipynb'
  QUERY_WAREHOUSE = notebook_wh;
 
@@ -85,7 +85,7 @@ SELECT
     $33::NUMBER as YEARS_IN_CURRENT_ROLE,
     $34::NUMBER as YEARS_SINCE_LAST_PROMOTION,
     $35::NUMBER as YEARS_WITH_CURR_MANAGER
-FROM '@ams_labs.data_engineering.AMS_LABS_REPO/branches/main/Session 5: ML and Predictive Analytics/HR-Employee-Attrition.csv'
+FROM '@snowflake_eval.data_engineering.SNOWFLAKE_EVAL_REPO/branches/main/Session 5: ML and Predictive Analytics/HR-Employee-Attrition.csv'
 (file_format => 'CSV_FORMAT');
 
 -- Verify the data load

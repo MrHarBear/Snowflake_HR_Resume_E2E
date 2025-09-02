@@ -116,7 +116,7 @@ This hands-on lab demonstrates Snowflake's comprehensive machine learning and pr
 ---
 
 ## **📈 STEP 3: ML Analytics Dashboard**
-**File:** `AMS_ML_ATTRITION_ANALYTICS_DASHBOARD.py`
+**File:** `ML_ATTRITION_ANALYTICS_DASHBOARD.py`
 
 ### **Interactive ML Dashboard Features:**
 
@@ -214,7 +214,7 @@ This hands-on lab demonstrates Snowflake's comprehensive machine learning and pr
    - Analyze model performance and feature importance
 
 3. **Dashboard Deployment**: 
-   - Launch `AMS_ML_ATTRITION_ANALYTICS_DASHBOARD.py` Streamlit application
+   - Launch `ML_ATTRITION_ANALYTICS_DASHBOARD.py` Streamlit application
    - Explore interactive ML analytics and prediction capabilities
    - Test real-time model scoring and insights generation
 
@@ -237,7 +237,7 @@ This hands-on lab demonstrates Snowflake's comprehensive machine learning and pr
 |------|---------|--------------|
 | `Lab5 - 00_SETUP.sql` | ML Environment Setup | Database config, Data loading, Initial analysis |
 | `Lab5_HR_ANALYTICS_ML.ipynb` | Complete ML Pipeline | Feature engineering, Model training, Deployment |
-| `AMS_ML_ATTRITION_ANALYTICS_DASHBOARD.py` | ML Analytics Dashboard | Interactive visualization, Model monitoring |
+| `ML_ATTRITION_ANALYTICS_DASHBOARD.py` | ML Analytics Dashboard | Interactive visualization, Model monitoring |
 | `HR-Employee-Attrition.csv` | Training Dataset | Employee data for attrition prediction |
 
 ---

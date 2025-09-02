@@ -1,7 +1,7 @@
 /***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | C | U | S | T | O | M | E | R |   | D | E | M | O |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L | U | A | T | I | O | N |   | D | E | M | O |
 
-Demo:         AMS Labs Data Sharing Consumer Script
+Demo:         Snowflake Evaluation - Data Sharing Consumer Script
 Create Date:  2025-06-15
 Purpose:      Demonstrate data consumption from shared datasets with applied security policies
 Data Source:  TEST.DATA_ENGINEERING.GOLD_CUSTOMER_HIRING_METRICS (shared data)

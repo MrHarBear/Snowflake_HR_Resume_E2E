@@ -1,16 +1,16 @@
 -- Needed only during Private Preview
 use role accountadmin;
-use database ams_labs;
+use database snowflake_eval;
 use schema data_engineering;
-GRANT USAGE ON SCHEMA AMS_LABS.data_engineering TO ROLE Snowflake_intelligence_admin_rl;
-GRANT USAGE ON DATABASE AMS_LABS                TO ROLE Snowflake_intelligence_admin_rl;
-GRANT USAGE ON ALL SCHEMAS    IN DATABASE AMS_LABS  TO ROLE Snowflake_intelligence_admin_rl;
-GRANT USAGE ON FUTURE SCHEMAS IN DATABASE AMS_LABS  TO ROLE Snowflake_intelligence_admin_rl;
+GRANT USAGE ON SCHEMA SNOWFLAKE_EVAL.data_engineering TO ROLE Snowflake_intelligence_admin_rl;
+GRANT USAGE ON DATABASE SNOWFLAKE_EVAL                TO ROLE Snowflake_intelligence_admin_rl;
+GRANT USAGE ON ALL SCHEMAS    IN DATABASE SNOWFLAKE_EVAL  TO ROLE Snowflake_intelligence_admin_rl;
+GRANT USAGE ON FUTURE SCHEMAS IN DATABASE SNOWFLAKE_EVAL  TO ROLE Snowflake_intelligence_admin_rl;
 -- Existing objects
-GRANT USAGE ON SCHEMA AMS_LABS.data_engineering TO ROLE Snowflake_intelligence_admin_rl;
-GRANT SELECT ON ALL TABLES      IN DATABASE AMS_LABS TO ROLE Snowflake_intelligence_admin_rl;
-GRANT ALL PRIVILEGES ON ALL TABLES      IN DATABASE AMS_LABS TO ROLE Snowflake_intelligence_admin_rl;
-GRANT ALL PRIVILEGES ON ALL VIEWS       IN DATABASE AMS_LABS TO ROLE Snowflake_intelligence_admin_rl;
+GRANT USAGE ON SCHEMA SNOWFLAKE_EVAL.data_engineering TO ROLE Snowflake_intelligence_admin_rl;
+GRANT SELECT ON ALL TABLES      IN DATABASE SNOWFLAKE_EVAL TO ROLE Snowflake_intelligence_admin_rl;
+GRANT ALL PRIVILEGES ON ALL TABLES      IN DATABASE SNOWFLAKE_EVAL TO ROLE Snowflake_intelligence_admin_rl;
+GRANT ALL PRIVILEGES ON ALL VIEWS       IN DATABASE SNOWFLAKE_EVAL TO ROLE Snowflake_intelligence_admin_rl;
 GRANT USAGE ON CORTEX SEARCH SERVICE <your cortex search name> TO ROLE Snowflake_intelligence_admin_rl;
 GRANT REFERENCES, SELECT ON FUTURE SEMANTIC VIEWS IN SCHEMA data_engineering TO ROLE Snowflake_intelligence_admin_rl;
 GRANT REFERENCES, SELECT ON SEMANTIC VIEW <your semantic view name> TO ROLE Snowflake_intelligence_admin_rl;

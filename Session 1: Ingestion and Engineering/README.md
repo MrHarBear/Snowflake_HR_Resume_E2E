@@ -88,7 +88,7 @@ This hands-on lab demonstrates Snowflake's comprehensive data engineering capabi
 - **Real-time Alerts** - Quality threshold monitoring with 5-minute refresh
 
 ### **Dashboard Integration:**
-**File:** `Lab1 - 01b_ams_data_quality_dashboard.py`
+**File:** `Lab1 - 01b_data_quality_dashboard.py`
 - Interactive quality score monitoring
 - Drill-down analysis of data issues
 - Problematic record identification and export
@@ -225,7 +225,7 @@ This hands-on lab demonstrates Snowflake's comprehensive data engineering capabi
 |------|---------|--------------|
 | `Lab1 - 00_data_ingestion.sql` | Data ingestion pipeline | Snowpipe, Dynamic Tables, Deduplication |
 | `Lab1 - 01_data_quality.sql` | Quality monitoring setup | DMFs, RBAC, Business rules |
-| `Lab1 - 01b_ams_data_quality_dashboard.py` | Quality dashboard | Interactive monitoring, Drill-down analysis |
+| `Lab1 - 01b_data_quality_dashboard.py` | Quality dashboard | Interactive monitoring, Drill-down analysis |
 | `Lab1 - 02_data_transformation.sql` | Complete transformation pipeline | UDFs, AI_CLASSIFY, Analytics tables |
 | `Lab1 - 03_analytics_dashboard.py` | Main analytics dashboard | Executive insights, Interactive visualizations |
 | `Lab1 - 04_semi_structure_data.sql` | Semi-structured processing | JSON handling, VARIANT types |

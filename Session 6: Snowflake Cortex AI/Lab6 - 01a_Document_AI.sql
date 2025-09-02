@@ -1,12 +1,12 @@
 use role accountadmin;
-use database ams_labs;
+use database snowflake_eval;
 use schema data_engineering;
 
-create or replace table ams_labs.data_engineering.doc_ai_resume as
+create or replace table snowflake_eval.data_engineering.doc_ai_resume as
 SELECT
     RELATIVE_PATH,
     '@DATA_ENGINGEERING.CVS/Product Managers' AS STAGE,
-    AMS_LABS.DATA_ENGINEERING.AMS_RESUME!PREDICT(
+    SNOWFLAKE_EVAL.DATA_ENGINEERING.DOC_AI_RESUME!PREDICT(
         GET_PRESIGNED_URL(
             '@DATA_ENGINEERING.CVS',
             RELATIVE_PATH
@@ -17,4 +17,4 @@ FROM
     DIRECTORY ('@CVS')
     where startswith(relative_path, 'Product Managers/');
 
-select * from ams_labs.data_engineering.doc_ai_resume;
+select * from snowflake_eval.data_engineering.doc_ai_resume;

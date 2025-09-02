@@ -1,7 +1,7 @@
 /***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | A | L | E | R | T | S |   &   | T | I | M | E |   | T | R | A | V | E | L |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L | U | A | T | I | O | N |   | A | L | E | R | T | S |   &   | T | I | M | E |   | T | R | A | V | E | L |
 
-Demo:         AMS Labs Alert System with Email Notifications and Time Travel Recovery
+Demo:         Snowflake Evaluation - Alert System with Email Notifications and Time Travel Recovery
 Create Date:  2025-06-15
 Purpose:      Demonstrate Snowflake alerts, email notifications, and Time Travel for table monitoring and recovery
 Target Table: AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP
@@ -34,12 +34,12 @@ FEATURES DEMONSTRATED:
 
 USE ROLE ACCOUNTADMIN;
 USE WAREHOUSE COMPUTE_WH;
-USE DATABASE AMS_LABS;
+USE DATABASE SNOWFLAKE_EVAL;
 USE SCHEMA DATA_ENGINEERING;
 
 -- Verify our target table exists
 SELECT 'Current table status' AS check_type, COUNT(*) AS record_count 
-FROM AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
+FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
 
 /*************************************************/
 /*************************************************/
@@ -55,16 +55,16 @@ Note: The email address must belong to a verified Snowflake user in this account
 ----------------------------------------------------------------------------------*/
 
 -- Create notification integration for email alerts
-CREATE OR REPLACE NOTIFICATION INTEGRATION AMS_EMAIL_ALERTS
+CREATE OR REPLACE NOTIFICATION INTEGRATION SNOWFLAKE_EVAL_EMAIL_ALERTS
     TYPE = EMAIL
     ENABLED = TRUE;
 -- Test email send (this will help us identify valid recipients)
 -- Display the integration details
-DESCRIBE INTEGRATION AMS_EMAIL_ALERTS;
+DESCRIBE INTEGRATION SNOWFLAKE_EVAL_EMAIL_ALERTS;
 
 -- Grant usage to roles that will use email notifications
-GRANT USAGE ON INTEGRATION AMS_EMAIL_ALERTS TO ROLE ACCOUNTADMIN;
-GRANT USAGE ON INTEGRATION AMS_EMAIL_ALERTS TO user hchen;
+GRANT USAGE ON INTEGRATION SNOWFLAKE_EVAL_EMAIL_ALERTS TO ROLE ACCOUNTADMIN;
+GRANT USAGE ON INTEGRATION SNOWFLAKE_EVAL_EMAIL_ALERTS TO user hchen;
 
 /*----------------------------------------------------------------------------------
 Step 2 - Grant Alert Privileges
@@ -88,7 +88,7 @@ Step 3 - Create Alert for Table Monitoring
 This alert will check if our critical table exists and send an email if it's missing.
 We're using a serverless alert (no WAREHOUSE specified) for cost efficiency.
 ----------------------------------------------------------------------------------*/
-CREATE OR REPLACE ALERT AMS_LABS.DATA_ENGINEERING.TABLE_DROP_MONITOR
+CREATE OR REPLACE ALERT SNOWFLAKE_EVAL.DATA_ENGINEERING.TABLE_DROP_MONITOR
     -- Using serverless compute for cost efficiency
     SCHEDULE = '1 MINUTE'  -- Check every minute for demo purposes
     IF (EXISTS (
@@ -109,7 +109,7 @@ CREATE OR REPLACE ALERT AMS_LABS.DATA_ENGINEERING.TABLE_DROP_MONITOR
             
             -- Send email notification using the integration
             CALL SYSTEM$SEND_EMAIL(
-                'AMS_EMAIL_ALERTS',
+                'SNOWFLAKE_EVAL_EMAIL_ALERTS',
                 <EMAIL@DOMAIN.COM>,  -- ensure to have the correct email here (must be verified)
                 'CRITICAL ALERT: TA Application Table Missing',
                 'ALERT TRIGGERED AT: ' || :alert_time || CHR(10) || CHR(10) ||
@@ -119,19 +119,19 @@ CREATE OR REPLACE ALERT AMS_LABS.DATA_ENGINEERING.TABLE_DROP_MONITOR
                 '1. Investigate the cause of the table drop' || CHR(10) ||
                 '2. Use Time Travel to recover the table if accidentally dropped' || CHR(10) ||
                 '3. Verify data integrity after recovery' || CHR(10) || CHR(10) ||
-                'Database: AMS_LABS' || CHR(10) ||
+                'Database: SNOWFLAKE_EVAL' || CHR(10) ||
                 'Schema: DATA_ENGINEERING' || CHR(10) ||
                 'Table: TA_APPLICATION_DATA_BRONZE_DEDUP' || CHR(10) || CHR(10) ||
-                'This is an automated alert from the AMS Labs monitoring system.'
+                'This is an automated alert from the Snowflake Evaluation monitoring system.'
             );
         END;
 
 
 -- Resume the alert (alerts are created in SUSPENDED state by default)
-ALTER ALERT AMS_LABS.DATA_ENGINEERING.TABLE_DROP_MONITOR RESUME;
+ALTER ALERT SNOWFLAKE_EVAL.DATA_ENGINEERING.TABLE_DROP_MONITOR RESUME;
 
 -- Verify alert is active
-SHOW ALERTS IN SCHEMA AMS_LABS.DATA_ENGINEERING;
+SHOW ALERTS IN SCHEMA SNOWFLAKE_EVAL.DATA_ENGINEERING;
 
 /*************************************************/
 /*************************************************/
@@ -148,7 +148,7 @@ Verify table exists and get baseline metrics before dropping
 -- Show current table status
 SELECT 
  top 100 * 
-FROM AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
+FROM SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
 
 SHOW PARAMETERS like '%DATA_RETENTION_TIME_IN_DAYS%' in account;
 
@@ -169,7 +169,7 @@ In production, you would never intentionally drop critical tables.
 SET drop_timestamp = CURRENT_TIMESTAMP();
 
 -- Drop the table (this should trigger our alert within 1 minute)
-DROP TABLE AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
+DROP TABLE SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
 
 
 -- Check that table no longer appears in INFORMATION_SCHEMA
@@ -207,9 +207,9 @@ within the retention period (default 24 hours).
 ----------------------------------------------------------------------------------*/
 
 -- Restore the dropped table using UNDROP
-UNDROP TABLE AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
+UNDROP TABLE SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
 
-select top 10 * from AMS_LABS.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
+select top 10 * from SNOWFLAKE_EVAL.DATA_ENGINEERING.TA_APPLICATION_DATA_BRONZE_DEDUP;
 -- Confirm table metadata
 SELECT 
     TABLE_CATALOG,
@@ -237,14 +237,14 @@ Remove the demo alert and summarize what was demonstrated
 ----------------------------------------------------------------------------------*/
 
 -- Suspend and drop the alert
-ALTER ALERT AMS_LABS.DATA_ENGINEERING.TABLE_DROP_MONITOR SUSPEND;
-DROP ALERT AMS_LABS.DATA_ENGINEERING.TABLE_DROP_MONITOR;
+ALTER ALERT SNOWFLAKE_EVAL.DATA_ENGINEERING.TABLE_DROP_MONITOR SUSPEND;
+DROP ALERT SNOWFLAKE_EVAL.DATA_ENGINEERING.TABLE_DROP_MONITOR;
 
 -- Verify alert is removed
-SHOW ALERTS IN SCHEMA AMS_LABS.DATA_ENGINEERING;
+SHOW ALERTS IN SCHEMA SNOWFLAKE_EVAL.DATA_ENGINEERING;
 
 -- Optional: Drop the email integration (uncomment if desired)
--- DROP INTEGRATION AMS_EMAIL_ALERTS;
+-- DROP INTEGRATION SNOWFLAKE_EVAL_EMAIL_ALERTS;
 
 /*----------------------------------------------------------------------------------
 DEMONSTRATION SUMMARY

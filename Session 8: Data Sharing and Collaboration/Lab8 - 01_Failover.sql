@@ -1,10 +1,10 @@
 /***************************************************************************************************
-| A | M | S |   | L | A | B | S |   | C | U | S | T | O | M | E | R |   | D | E | M | O |
+| S | N | O | W | F | L | A | K | E |   | E | V | A | L | U | A | T | I | O | N |   | D | E | M | O |
 
-Demo:         AMS Labs Account Failover and Replication
+Demo:         Snowflake Evaluation - Account Failover and Replication
 Create Date:  2025-06-15
 Purpose:      Demonstrate Snowflake account failover and database replication for business continuity
-Data Source:  AMS_LABS, HR_ANALYTICS (replicated databases)
+Data Source:  SNOWFLAKE_EVAL, HR_ANALYTICS (replicated databases)
 Customer:     Business Continuity and Disaster Recovery
 ****************************************************************************************************
 
@@ -62,7 +62,7 @@ SELECT SYSTEM$GLOBAL_ACCOUNT_SET_PARAMETER('<org_name>.HOL_ACCOUNT2', 'ENABLE_AC
 USE ROLE ACCOUNTADMIN;
 CREATE FAILOVER GROUP myfg
   OBJECT_TYPES = USERS, ROLES, WAREHOUSES, RESOURCE MONITORS, DATABASES
-  ALLOWED_DATABASES = HR_ANALYTICS, AMS_LABS
+  ALLOWED_DATABASES = HR_ANALYTICS, SNOWFLAKE_EVAL
   ALLOWED_ACCOUNTS = MJDLKQJ.HOL_ACCOUNT2
   REPLICATION_SCHEDULE = '60 MINUTE';
 

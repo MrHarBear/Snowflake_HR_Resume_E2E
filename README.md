@@ -1,11 +1,11 @@
-# 🏔️ AMS Labs 2025 - Comprehensive Snowflake Evaluation Program
+# 🏔️ Snowflake Evaluation Program 2025 - Comprehensive Guide
 ## **Enterprise Data Platform Capabilities Showcase**
 
 ---
 
 ## 📋 **Program Overview**
 
-Welcome to the AMS Labs comprehensive Snowflake evaluation program - a hands-on journey through the complete spectrum of Snowflake's modern data platform capabilities. This program demonstrates enterprise-grade features across data engineering, security, governance, AI, and collaboration through practical, real-world scenarios.
+Welcome to the Snowflake Evaluation Program — a hands-on journey through the complete spectrum of Snowflake's modern data platform capabilities. This program demonstrates enterprise-grade features across data engineering, security, governance, AI, and collaboration through practical, real-world scenarios.
 
 ### **Target Audience**
 - **Data Scientists & Engineers** - Hands-on technical implementation and architecture
@@ -135,7 +135,7 @@ Welcome to the AMS Labs comprehensive Snowflake evaluation program - a hands-on 
 ## 📦 **Repository Structure**
 
 ```
-AMS_Labs_2025_06/
+Snowflake_Evaluation_Program/
 ├── 00_SETUP.sql                           # Main environment setup
 ├── Session 1: Ingestion and Engineering/  # Data engineering & analytics
 ├── Session 2: Openflow and Demo/          # Data integration demo
@@ -243,4 +243,4 @@ AMS_Labs_2025_06/
 
 This repository is provided for evaluation and educational purposes. All scripts, datasets, and documentation are designed to demonstrate Snowflake capabilities in a comprehensive, hands-on format.
 
-**© 2025 AMS Labs - Snowflake Evaluation Program** 
+**© 2025 Snowflake Evaluation Program** 
