@@ -75,13 +75,126 @@ Welcome to the Snowflake Evaluation Program — a hands-on journey through the c
 
 **Overall code implemented: 6,321 LOC** across 5 domains
 
-| Category | Capabilities (1) | Capabilities (2) | Capabilities (3) |
-|---|---|---|---|
-| Data Engineering | Ingestion, Snowpipe, Stages, File Formats | Dynamic Tables, Streams, UDFs (Python/SQL), Tasks | CTAS, Views, Stored Procedures |
-| Governance | RBAC, Row Access Policies, Dynamic Masking, Data Metric Functions (DMFs) | Alerts, Email Notifications, Time Travel, Zero-Copy Cloning | Resource Monitors, Access History, Query History, Cost Governance |
-| ML and Predictive Analytics | Snowpark ML, Model Registry, Notebooks | Feature Engineering, Model Training, Hyperparameter Tuning | Inference, Streamlit Dashboards |
-| AI | Document Intelligence, AI_CLASSIFY | Cortex Search, AI Agents | AI-SQL |
-| Collaboration | Secure Data Sharing, Data Sharing Consumer | Cross-Region/Cloud Sharing, Failover Groups | Replication |
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Capabilities</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Data Engineering</strong></td>
+      <td>
+        <table width="100%">
+          <tr>
+            <td>Ingestion</td>
+            <td>Snowpipe</td>
+            <td>Stages</td>
+          </tr>
+          <tr>
+            <td>File Formats</td>
+            <td>Dynamic Tables</td>
+            <td>Streams</td>
+          </tr>
+          <tr>
+            <td>UDFs (Python/SQL)</td>
+            <td>Tasks</td>
+            <td>CTAS</td>
+          </tr>
+          <tr>
+            <td>Views</td>
+            <td>Stored Procedures</td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Governance</strong></td>
+      <td>
+        <table width="100%">
+          <tr>
+            <td>RBAC</td>
+            <td>Row Access Policies</td>
+            <td>Dynamic Masking</td>
+          </tr>
+          <tr>
+            <td>Data Metric Functions (DMFs)</td>
+            <td>Alerts</td>
+            <td>Email Notifications</td>
+          </tr>
+          <tr>
+            <td>Time Travel</td>
+            <td>Zero-Copy Cloning</td>
+            <td>Resource Monitors</td>
+          </tr>
+          <tr>
+            <td>Access History</td>
+            <td>Query History</td>
+            <td>Cost Governance</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>ML and Predictive Analytics</strong></td>
+      <td>
+        <table width="100%">
+          <tr>
+            <td>Snowpark ML</td>
+            <td>Model Registry</td>
+            <td>Notebooks</td>
+          </tr>
+          <tr>
+            <td>Feature Engineering</td>
+            <td>Model Training</td>
+            <td>Hyperparameter Tuning</td>
+          </tr>
+          <tr>
+            <td>Inference</td>
+            <td>Streamlit Dashboards</td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>AI</strong></td>
+      <td>
+        <table width="100%">
+          <tr>
+            <td>Document Intelligence</td>
+            <td>AI_CLASSIFY</td>
+            <td>Cortex Search</td>
+          </tr>
+          <tr>
+            <td>AI Agents</td>
+            <td>AI-SQL</td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td><strong>Collaboration</strong></td>
+      <td>
+        <table width="100%">
+          <tr>
+            <td>Secure Data Sharing</td>
+            <td>Data Sharing Consumer</td>
+            <td>Cross-Region/Cloud Sharing</td>
+          </tr>
+          <tr>
+            <td>Failover Groups</td>
+            <td>Replication</td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+  </table>
 
 > Built for breadth: dozens of enterprise-grade features spanning engineering, governance, ML, AI, and collaboration.
 
