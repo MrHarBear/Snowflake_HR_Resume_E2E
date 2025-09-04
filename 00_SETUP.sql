@@ -123,7 +123,7 @@ DESC INTEGRATION git_api_integration;
 -- Create Git repository integration
 CREATE OR REPLACE GIT REPOSITORY SNOWFLAKE_EVAL_REPO
     API_INTEGRATION = git_api_integration
-  ORIGIN = 'https://github.com/sfc-gh-hachen/Snowflake_Evaluation_Program.git'
+  ORIGIN = 'https://github.com/MrHarBear/Snowflake_HR_Resume_E2E.git'
   GIT_CREDENTIALS = NULL;
 
 -- List files to verify the repository connection
