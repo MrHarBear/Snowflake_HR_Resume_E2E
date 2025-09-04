@@ -86,111 +86,41 @@ Welcome to the Snowflake Evaluation Program — a hands-on journey through the c
     <tr>
       <td><strong>Data Engineering</strong></td>
       <td>
-        <table width="100%">
-          <tr>
-            <td>Ingestion</td>
-            <td>Snowpipe</td>
-            <td>Stages</td>
-          </tr>
-          <tr>
-            <td>File Formats</td>
-            <td>Dynamic Tables</td>
-            <td>Streams</td>
-          </tr>
-          <tr>
-            <td>UDFs (Python/SQL)</td>
-            <td>Tasks</td>
-            <td>CTAS</td>
-          </tr>
-          <tr>
-            <td>Views</td>
-            <td>Stored Procedures</td>
-            <td></td>
-          </tr>
-        </table>
+        <code>Ingestion</code> <code>Snowpipe</code> <code>Stages</code><br/>
+        <code>File Formats</code> <code>Dynamic Tables</code> <code>Streams</code><br/>
+        <code>UDFs (Python/SQL)</code> <code>Tasks</code> <code>CTAS</code><br/>
+        <code>Views</code> <code>Stored Procedures</code>
       </td>
     </tr>
     <tr>
       <td><strong>Governance</strong></td>
       <td>
-        <table width="100%">
-          <tr>
-            <td>RBAC</td>
-            <td>Row Access Policies</td>
-            <td>Dynamic Masking</td>
-          </tr>
-          <tr>
-            <td>Data Metric Functions (DMFs)</td>
-            <td>Alerts</td>
-            <td>Email Notifications</td>
-          </tr>
-          <tr>
-            <td>Time Travel</td>
-            <td>Zero-Copy Cloning</td>
-            <td>Resource Monitors</td>
-          </tr>
-          <tr>
-            <td>Access History</td>
-            <td>Query History</td>
-            <td>Cost Governance</td>
-          </tr>
-        </table>
+        <code>RBAC</code> <code>Row Access Policies</code> <code>Dynamic Masking</code><br/>
+        <code>Data Metric Functions (DMFs)</code> <code>Alerts</code> <code>Email Notifications</code><br/>
+        <code>Time Travel</code> <code>Zero-Copy Cloning</code> <code>Resource Monitors</code><br/>
+        <code>Access History</code> <code>Query History</code> <code>Cost Governance</code>
       </td>
     </tr>
     <tr>
       <td><strong>ML and Predictive Analytics</strong></td>
       <td>
-        <table width="100%">
-          <tr>
-            <td>Snowpark ML</td>
-            <td>Model Registry</td>
-            <td>Notebooks</td>
-          </tr>
-          <tr>
-            <td>Feature Engineering</td>
-            <td>Model Training</td>
-            <td>Hyperparameter Tuning</td>
-          </tr>
-          <tr>
-            <td>Inference</td>
-            <td>Streamlit Dashboards</td>
-            <td></td>
-          </tr>
-        </table>
+        <code>Snowpark ML</code> <code>Model Registry</code> <code>Notebooks</code><br/>
+        <code>Feature Engineering</code> <code>Model Training</code> <code>Hyperparameter Tuning</code><br/>
+        <code>Inference</code> <code>Streamlit Dashboards</code>
       </td>
     </tr>
     <tr>
       <td><strong>AI</strong></td>
       <td>
-        <table width="100%">
-          <tr>
-            <td>Document Intelligence</td>
-            <td>AI_CLASSIFY</td>
-            <td>Cortex Search</td>
-          </tr>
-          <tr>
-            <td>AI Agents</td>
-            <td>AI-SQL</td>
-            <td></td>
-          </tr>
-        </table>
+        <code>Document Intelligence</code> <code>AI_CLASSIFY</code> <code>Cortex Search</code><br/>
+        <code>AI Agents</code> <code>AI-SQL</code>
       </td>
     </tr>
     <tr>
       <td><strong>Collaboration</strong></td>
       <td>
-        <table width="100%">
-          <tr>
-            <td>Secure Data Sharing</td>
-            <td>Data Sharing Consumer</td>
-            <td>Cross-Region/Cloud Sharing</td>
-          </tr>
-          <tr>
-            <td>Failover Groups</td>
-            <td>Replication</td>
-            <td></td>
-          </tr>
-        </table>
+        <code>Secure Data Sharing</code> <code>Data Sharing Consumer</code> <code>Cross-Region/Cloud Sharing</code><br/>
+        <code>Failover Groups</code> <code>Replication</code>
       </td>
     </tr>
   </tbody>
