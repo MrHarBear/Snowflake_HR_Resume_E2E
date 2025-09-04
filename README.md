@@ -75,13 +75,13 @@ Welcome to the Snowflake Evaluation Program — a hands-on journey through the c
 
 **Overall code implemented: 6,321 LOC** across 5 domains
 
-| Category | Capabilities (keywords) |
-|---|---|
-| Data Engineering | Ingestion, Snowpipe, Stages, File Formats, Dynamic Tables, Streams, UDFs (Python/SQL), Tasks, CTAS, Views, Stored Procedures |
-| Governance | RBAC, Row Access Policies, Dynamic Masking, Data Metric Functions (DMFs), Alerts, Email Notifications, Time Travel, Zero-Copy Cloning, Resource Monitors, Access History, Query History, Cost Governance |
-| ML and Predictive Analytics | Snowpark ML, Model Registry, Notebooks, Feature Engineering, Model Training, Hyperparameter Tuning, Inference, Streamlit Dashboards |
-| AI | Document Intelligence, AI_CLASSIFY, Cortex Search, AI Agents, AI-SQL |
-| Collaboration | Secure Data Sharing, Data Sharing Consumer, Cross-Region/Cloud Sharing, Failover Groups, Replication |
+| Category | Capabilities (1) | Capabilities (2) | Capabilities (3) |
+|---|---|---|---|
+| Data Engineering | Ingestion, Snowpipe, Stages, File Formats | Dynamic Tables, Streams, UDFs (Python/SQL), Tasks | CTAS, Views, Stored Procedures |
+| Governance | RBAC, Row Access Policies, Dynamic Masking, Data Metric Functions (DMFs) | Alerts, Email Notifications, Time Travel, Zero-Copy Cloning | Resource Monitors, Access History, Query History, Cost Governance |
+| ML and Predictive Analytics | Snowpark ML, Model Registry, Notebooks | Feature Engineering, Model Training, Hyperparameter Tuning | Inference, Streamlit Dashboards |
+| AI | Document Intelligence, AI_CLASSIFY | Cortex Search, AI Agents | AI-SQL |
+| Collaboration | Secure Data Sharing, Data Sharing Consumer | Cross-Region/Cloud Sharing, Failover Groups | Replication |
 
 > Built for breadth: dozens of enterprise-grade features spanning engineering, governance, ML, AI, and collaboration.
 
