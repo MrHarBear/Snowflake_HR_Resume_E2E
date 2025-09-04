@@ -86,40 +86,40 @@ Welcome to the Snowflake Evaluation Program — a hands-on journey through the c
     <tr>
       <td><strong>Data Engineering</strong></td>
       <td>
-        <code>Ingestion</code>&nbsp;&nbsp;<code>Snowpipe</code>&nbsp;&nbsp;<code>Stages</code><br/><br/>
-        <code>File Formats</code>&nbsp;&nbsp;<code>Dynamic Tables</code>&nbsp;&nbsp;<code>Streams</code><br/><br/>
-        <code>UDFs (Python/SQL)</code>&nbsp;&nbsp;<code>Tasks</code>&nbsp;&nbsp;<code>CTAS</code><br/><br/>
+        <code>Ingestion</code>&nbsp;&nbsp;<code>Snowpipe</code>&nbsp;&nbsp;<code>Stages</code><br/>
+        <code>File Formats</code>&nbsp;&nbsp;<code>Dynamic Tables</code>&nbsp;&nbsp;<code>Streams</code><br/>
+        <code>UDFs (Python/SQL)</code>&nbsp;&nbsp;<code>Tasks</code>&nbsp;&nbsp;<code>CTAS</code><br/>
         <code>Views</code>&nbsp;&nbsp;<code>Stored Procedures</code>
       </td>
     </tr>
     <tr>
       <td><strong>Governance</strong></td>
       <td>
-        <code>RBAC</code>&nbsp;&nbsp;<code>Row Access Policies</code>&nbsp;&nbsp;<code>Dynamic Masking</code><br/><br/>
-        <code>Data Metric Functions (DMFs)</code>&nbsp;&nbsp;<code>Alerts</code>&nbsp;&nbsp;<code>Email Notifications</code><br/><br/>
-        <code>Time Travel</code>&nbsp;&nbsp;<code>Zero-Copy Cloning</code>&nbsp;&nbsp;<code>Resource Monitors</code><br/><br/>
+        <code>RBAC</code>&nbsp;&nbsp;<code>Row Access Policies</code>&nbsp;&nbsp;<code>Dynamic Masking</code><br/>
+        <code>Data Metric Functions (DMFs)</code>&nbsp;&nbsp;<code>Alerts</code>&nbsp;&nbsp;<code>Email Notifications</code><br/>
+        <code>Time Travel</code>&nbsp;&nbsp;<code>Zero-Copy Cloning</code>&nbsp;&nbsp;<code>Resource Monitors</code><br/>
         <code>Access History</code>&nbsp;&nbsp;<code>Query History</code>&nbsp;&nbsp;<code>Cost Governance</code>
       </td>
     </tr>
     <tr>
       <td><strong>ML and Predictive Analytics</strong></td>
       <td>
-        <code>Snowpark ML</code>&nbsp;&nbsp;<code>Model Registry</code>&nbsp;&nbsp;<code>Notebooks</code><br/><br/>
-        <code>Feature Engineering</code>&nbsp;&nbsp;<code>Model Training</code>&nbsp;&nbsp;<code>Hyperparameter Tuning</code><br/><br/>
+        <code>Snowpark ML</code>&nbsp;&nbsp;<code>Model Registry</code>&nbsp;&nbsp;<code>Notebooks</code><br/>
+        <code>Feature Engineering</code>&nbsp;&nbsp;<code>Model Training</code>&nbsp;&nbsp;<code>Hyperparameter Tuning</code><br/>
         <code>Inference</code>&nbsp;&nbsp;<code>Streamlit Dashboards</code>
       </td>
     </tr>
     <tr>
       <td><strong>AI</strong></td>
       <td>
-        <code>Document Intelligence</code>&nbsp;&nbsp;<code>AI_CLASSIFY</code>&nbsp;&nbsp;<code>Cortex Search</code><br/><br/>
+        <code>Document Intelligence</code>&nbsp;&nbsp;<code>AI_CLASSIFY</code>&nbsp;&nbsp;<code>Cortex Search</code><br/>
         <code>AI Agents</code>&nbsp;&nbsp;<code>AI-SQL</code>
       </td>
     </tr>
     <tr>
       <td><strong>Collaboration</strong></td>
       <td>
-        <code>Secure Data Sharing</code>&nbsp;&nbsp;<code>Data Sharing Consumer</code>&nbsp;&nbsp;<code>Cross-Region/Cloud Sharing</code><br/><br/>
+        <code>Secure Data Sharing</code>&nbsp;&nbsp;<code>Data Sharing Consumer</code>&nbsp;&nbsp;<code>Cross-Region/Cloud Sharing</code><br/>
         <code>Failover Groups</code>&nbsp;&nbsp;<code>Replication</code>
       </td>
     </tr>
