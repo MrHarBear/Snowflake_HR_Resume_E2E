@@ -92,7 +92,8 @@ Welcome to the Snowflake Evaluation Program — a hands-on journey through the c
         <code>Medallion Architecture</code>&nbsp;&nbsp;<code>Complex Joins</code>&nbsp;&nbsp;<code>Unstructured PDFs</code><br/>
         <code>Semistructured JSONs</code>&nbsp;&nbsp;<code>Structured CSVs</code>&nbsp;&nbsp;<code>Data Quality Function</code><br/>
         <code>Visualization</code>&nbsp;&nbsp;<code>Workspace</code>&nbsp;&nbsp;<code>Git Integration</code><br/>
-        <code>External Integration</code>
+        <code>External Integration</code>&nbsp;&nbsp;<code>Dot Notation</code>&nbsp;&nbsp;<code>Lateral Flatten</code><br/>
+        <code>PARSE_JSON</code>
       </td>
     </tr>
     <tr>
@@ -122,7 +123,7 @@ Welcome to the Snowflake Evaluation Program — a hands-on journey through the c
       <td>
         <code>Document AI</code>&nbsp;&nbsp;<code>AI_CLASSIFY</code>&nbsp;&nbsp;<code>Cortex Search</code><br/>
         <code>Cortex Analyst</code>&nbsp;&nbsp;<code>Cortex Agent</code>&nbsp;&nbsp;<code>Snowflake Intelligence</code><br/>
-        <code>AI-SQL</code>
+        <code>AI_AGG</code>&nbsp;&nbsp;<code>AI_FILTER</code>&nbsp;&nbsp;<code>AI_COMPLETE</code>
       </td>
     </tr>
     <tr>
