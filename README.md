@@ -86,34 +86,43 @@ Welcome to the Snowflake Evaluation Program — a hands-on journey through the c
     <tr>
       <td><strong>Data Engineering</strong></td>
       <td>
-        <code>Ingestion</code>&nbsp;&nbsp;<code>Snowpipe</code>&nbsp;&nbsp;<code>Stages</code><br/>
-        <code>File Formats</code>&nbsp;&nbsp;<code>Dynamic Tables</code>&nbsp;&nbsp;<code>Streams</code><br/>
-        <code>UDFs (Python/SQL)</code>&nbsp;&nbsp;<code>Tasks</code>&nbsp;&nbsp;<code>CTAS</code><br/>
-        <code>Views</code>&nbsp;&nbsp;<code>Stored Procedures</code>
+        <code>Snowpipe</code>&nbsp;&nbsp;<code>Stages</code>&nbsp;&nbsp;<code>File Formats</code><br/>
+        <code>Dynamic Tables</code>&nbsp;&nbsp;<code>Streams</code>&nbsp;&nbsp;<code>UDFs (Python/SQL)</code><br/>
+        <code>Tasks</code>&nbsp;&nbsp;<code>Views</code>&nbsp;&nbsp;<code>Stored Procedures</code><br/>
+        <code>Medallion Architecture</code>&nbsp;&nbsp;<code>Complex Joins</code>&nbsp;&nbsp;<code>Unstructured PDFs</code><br/>
+        <code>Semistructured JSONs</code>&nbsp;&nbsp;<code>Structured CSVs</code>&nbsp;&nbsp;<code>Data Quality Function</code><br/>
+        <code>Visualization</code>&nbsp;&nbsp;<code>Workspace</code>&nbsp;&nbsp;<code>Git Integration</code><br/>
+        <code>External Integration</code>
       </td>
     </tr>
     <tr>
       <td><strong>Governance</strong></td>
       <td>
-        <code>RBAC</code>&nbsp;&nbsp;<code>Row Access Policies</code>&nbsp;&nbsp;<code>Dynamic Masking</code><br/>
-        <code>Data Metric Functions (DMFs)</code>&nbsp;&nbsp;<code>Alerts</code>&nbsp;&nbsp;<code>Email Notifications</code><br/>
-        <code>Time Travel</code>&nbsp;&nbsp;<code>Zero-Copy Cloning</code>&nbsp;&nbsp;<code>Resource Monitors</code><br/>
-        <code>Access History</code>&nbsp;&nbsp;<code>Query History</code>&nbsp;&nbsp;<code>Cost Governance</code>
+        <code>Tags</code>&nbsp;&nbsp;<code>Classification</code>&nbsp;&nbsp;<code>RBAC</code><br/>
+        <code>Row Access Policies</code>&nbsp;&nbsp;<code>Dynamic Masking</code>&nbsp;&nbsp;<code>Aggregation Policy</code><br/>
+        <code>Projection Policy</code>&nbsp;&nbsp;<code>Data Metric Functions (DMFs)</code>&nbsp;&nbsp;<code>Alerts</code><br/>
+        <code>Email Notifications</code>&nbsp;&nbsp;<code>Time Travel</code>&nbsp;&nbsp;<code>Zero-Copy Cloning</code><br/>
+        <code>Resource Monitors</code>&nbsp;&nbsp;<code>Access History</code>&nbsp;&nbsp;<code>Query History</code><br/>
+        <code>Cost Governance</code>&nbsp;&nbsp;<code>Trust Centre</code>&nbsp;&nbsp;<code>Event Tables</code><br/>
+        <code>Read Access</code>&nbsp;&nbsp;<code>Write Access</code>&nbsp;&nbsp;<code>Compliance Audit</code><br/>
+        <code>Dev/Test/Prod Environments</code>
       </td>
     </tr>
     <tr>
       <td><strong>ML and Predictive Analytics</strong></td>
       <td>
         <code>Snowpark ML</code>&nbsp;&nbsp;<code>Model Registry</code>&nbsp;&nbsp;<code>Notebooks</code><br/>
-        <code>Feature Engineering</code>&nbsp;&nbsp;<code>Model Training</code>&nbsp;&nbsp;<code>Hyperparameter Tuning</code><br/>
-        <code>Inference</code>&nbsp;&nbsp;<code>Streamlit Dashboards</code>
+        <code>Preprocessing</code>&nbsp;&nbsp;<code>Feature Engineering</code>&nbsp;&nbsp;<code>Model Training</code><br/>
+        <code>Hyperparameter Tuning</code>&nbsp;&nbsp;<code>Explainability</code>&nbsp;&nbsp;<code>Inference</code><br/>
+        <code>Streamlit Dashboards</code>
       </td>
     </tr>
     <tr>
       <td><strong>AI</strong></td>
       <td>
-        <code>Document Intelligence</code>&nbsp;&nbsp;<code>AI_CLASSIFY</code>&nbsp;&nbsp;<code>Cortex Search</code><br/>
-        <code>AI Agents</code>&nbsp;&nbsp;<code>AI-SQL</code>
+        <code>Document AI</code>&nbsp;&nbsp;<code>AI_CLASSIFY</code>&nbsp;&nbsp;<code>Cortex Search</code><br/>
+        <code>Cortex Analyst</code>&nbsp;&nbsp;<code>Cortex Agent</code>&nbsp;&nbsp;<code>Snowflake Intelligence</code><br/>
+        <code>AI-SQL</code>
       </td>
     </tr>
     <tr>
